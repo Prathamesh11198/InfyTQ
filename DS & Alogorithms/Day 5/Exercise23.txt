@@ -1,0 +1,32 @@
+#DSA-Exer-23
+
+def arrange_tickets(tickets_list):
+    #Remove pass and write your logic here
+    lst = []
+    for i in range(1, 21):
+        ticket = 'T'+str(i)
+        if ticket not in tickets_list:
+            lst.append("V")
+        else:
+            lst.append(ticket)
+    
+    gr1 = lst[:10]
+    gr2 = lst[10:]
+    
+    while "V" in gr2:
+        gr2.remove("V")
+    
+    ind = 0
+    for i in range(len(gr1)):
+        if gr1[i] == "V" and len(gr2)>0:
+            gr1[i] = gr2[ind]
+            ind += 1
+    return gr1
+
+tickets_list = ['T5','T7','T1','T2','T8','T15','T17','T19','T6','T12','T13']
+print("Ticket ids of all the available students :")
+print(tickets_list)
+result=arrange_tickets(tickets_list)
+print()
+print("Ticket ids of the ten students in Group-1:")
+print(result)

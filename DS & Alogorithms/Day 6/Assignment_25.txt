@@ -1,0 +1,35 @@
+#DSA-Assgn-25
+
+def find_number_of_platforms(arrival_time_list,departure_time_list):
+    #Remove pass and test your program
+    lst = []
+    lst.extend(arrival_time_list)
+    lst.extend(departure_time_list)
+    lst.sort()
+    
+    cnt = 0
+    count = []
+    flag = 0 
+    for i in lst:
+        if i in arrival_time_list and i in departure_time_list:
+            flag = 1
+            
+        if i in arrival_time_list:
+            cnt += 1
+            count.append(cnt) 
+        
+        if i in departure_time_list:
+            cnt -= 1
+            count.append(cnt)
+            
+    if flag == 1:
+        return max(count)-1
+    else:
+        return max(count)
+
+#Pass different values to the function and test your program
+arrival_time_list = [800, 810, 900, 740, 1200, 1400]
+departure_time_list = [2300, 2000, 1200, 1349, 1500, 2120]
+print("The arrival time of the trains:", arrival_time_list)
+print("The departure time of the trains:",departure_time_list)
+print("Minimum number of platforms required :",find_number_of_platforms(arrival_time_list,departure_time_list))

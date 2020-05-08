@@ -1,0 +1,29 @@
+#DSA-Exer-22
+def swap(student_list, height_list, n1, n2):
+    temp = student_list[n1]
+    temp1 = height_list[n1]
+    student_list[n1] = student_list[n2]
+    student_list[n2] = temp
+    height_list[n1] = height_list[n2]
+    height_list[n2] = temp1
+
+def order_heights(student_list,height_list):
+    #Write your logic here
+    for i in range(len(height_list)-1):
+        for j in range(len(height_list)-i-1):
+            if height_list[j] > height_list[j+1]:
+                swap(student_list, height_list, j, j+1)
+    
+    return[student_list,height_list]
+
+#Pass different values to the function and test your program
+student_list=["Santa","Tris","Arun","Rachel","John"]
+height_list=[132.7,129.2,135,130.6,140]
+print("Initial student details :")
+print("The students:",student_list)
+print("Their heights:",height_list)
+print()
+result=order_heights(student_list,height_list)
+print("After arranging the students in the order of their height:")
+print("The students :",result[0])
+print("Their heights:",result[1])

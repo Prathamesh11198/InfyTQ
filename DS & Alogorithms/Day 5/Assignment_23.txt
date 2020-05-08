@@ -1,0 +1,127 @@
+#DSA-Tryout
+import random
+
+def generate_cards_per_type(card_type):
+    #Remove pass and write your logic here
+    lst = []
+    for i in range(2, 10):
+        temp = card_type+str(i)
+        lst.append(temp)
+    lst.append(card_type+"J")
+    lst.append(card_type+"Q")
+    lst.append(card_type+"K")
+    lst.append(card_type+"A")
+    
+    return lst
+
+def generate_card_deck():
+    #Remove pass and write your logic here
+    c = generate_cards_per_type("C")
+    d = generate_cards_per_type("D")
+    h = generate_cards_per_type("H")
+    s = generate_cards_per_type("S")
+    
+    cards = []
+    cards.extend(c)
+    cards.extend(d)
+    cards.extend(h)
+    cards.extend(s)
+    return cards
+
+def shuffle_card_deck(cards_list):
+    #Remove pass and write your logic here
+    cards = generate_card_deck()
+    mid = len(cards)//2
+    
+    for j in range(len(cards)):
+        index1 = random.randrange(0,mid)
+        index2 = random.randrange(mid,len(cards))
+        num1 = cards[index1]
+        cards[index1] = cards[index2]
+        cards[index2] = num1
+        
+    return cards
+    
+def sort_card(card_list, card_type):
+    lst = []
+    for card in card_list:
+        for i in range(1, 10):
+            if card[1:].isnumeric() and int(card[1:]) == i:
+                lst.append(card)
+        if card.endswith("J"):
+            lst.append(card)
+        if card.endswith("Q"):
+            lst.append(card)
+        if card.endswith("K"):
+            lst.append(card)
+        if card.endswith("A"):
+            lst.append(card)
+    return lst
+
+def sort_cards_of_each_player(card_list):
+    #Remove pass and write your logic here
+    c = []
+    d = []
+    h = []
+    s = []
+    for card in card_list:
+        if card.startswith("C"):
+            c.append(card)
+        elif card.startswith("D"):
+            d.append(card)
+        elif card.startswith("H"):
+            h.append(card)
+        elif card.startswith("S"):
+            s.append(card)
+    c = sort_card(c, "C")
+    d = sort_card(d, "D")
+    h = sort_card(h, "H")
+    s = sort_card(s, "S")
+    
+    cards = []
+    cards.extend(c)
+    cards.extend(d)
+    cards.extend(h)
+    cards.extend(s)
+    
+    return cards
+
+def allocate_cards_to_players(cards_list):
+    #Remove pass and write your logic here
+    cards_list = generate_card_deck()
+    cards = shuffle_card_deck(cards_list)
+    
+    dic = {}
+    dic["player1"] = []
+    dic["player2"] = []
+    dic["player3"] = []
+    dic["player4"] = []
+    
+    dic["player1"] = cards[:13]
+    dic["player2"] = cards[13:26]
+    dic["player3"] = cards[26:39]
+    dic["player4"] = cards[39:]
+    
+    return dic
+    
+def prepare_cards():
+    #Remove pass and write your logic here
+    cards_list = generate_card_deck()
+    new_cards_list = shuffle_card_deck(cards_list)
+    dictionary = allocate_cards_to_players(new_cards_list)
+    
+    for i in range(1,5):
+        dictionary['player'+str(i)] = sort_cards_of_each_player(dictionary['player'+str(i)])
+        
+    print(dictionary["player1"])
+    print(dictionary["player2"])
+    print(dictionary["player3"])
+    print(dictionary["player4"])
+    
+    for i in range(1,5):
+        if "CA" in dictionary['player'+str(i)]:
+            return 'player'+str(i)
+    
+
+first_player = prepare_cards()
+print("The first player is:",first_player)
