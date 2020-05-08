@@ -1,0 +1,181 @@
+Exer - 59:
+SELECT SALEID, SLDATE 
+FROM Sale
+WHERE SLDATE = (SELECT MAX(SLDATE) 
+		FROM Sale);
+
+Exer - 60:
+SELECT SNAME 
+FROM Salesman 
+WHERE SID IN (SELECT SID 
+	          FROM Sale 
+	          GROUP BY SID 
+	          HAVING COUNT(SALEID) >= 2);
+
+Exer - 61:
+SELECT PRODID, PDESC
+FROM Product 
+WHERE PRODID IN (SELECT PRODID 
+		   FROM SaleDetail 
+		   GROUP BY PRODID 	
+	   	   HAVING SUM(QUANTITY) = (SELECT MIN(SUM(QUANTITY)) 
+					   FROM SaleDetail 
+					   GROUP BY PRODID));
+
+Exer - 62:
+SELECT SID, SNAME, LOCATION
+FROM Salesman
+WHERE SID IN (SELECT S.SID
+	          FROM Sale S, SaleDetail SD, Product P
+	          WHERE P.PRODID = SD.PRODID AND S.SALEID = SD.SALEID
+	          GROUP BY S.SID
+	          HAVING SUM(QUANTITY*PRICE*(1 - (DISCOUNT/100))) > (SELECT AVG(SUM(QUANTITY*PRICE*(1 - (DISCOUNT/100))))
+							           FROM SaleDetail SD, Product P
+							           WHERE P.PRODID = SD.PRODID
+							            GROUP BY SALEID));
+
+Exer - 63:
+SELECT PRODID, CATEGORY, PDESC, PRICE 
+FROM Product P1 
+WHERE PRICE = (SELECT MAX(PRICE) 
+	             FROM Product P2 
+	             WHERE P1.CATEGORY = P2.CATEGORY);
+
+Exer - 64:
+SELECT SNAME 
+FROM Salesman SM
+WHERE NOT EXIST (SELECT SID 
+		   FROM Sale S 
+		   WHERE SM.SID = S.SID); 
+
+Exer - 65:
+SELECT SNAME 
+FROM Salesman SM
+WHERE EXISTS (SELECT SID 
+	            FROM Sale S 
+	            WHERE SM.SID = S.SID AND TO_CHAR(S.SLDATE, 'MM-YY') = '06-15');
+
+
+Exer - 66:
+SELECT SM.SID SNAME, LOCATION 
+FROM Salesman SM 
+INNER JOIN Sale S ON S.SID = SM.SID JOIN SaleDetail SD ON SD.SALEID = S.SALEID JOIN Product P ON P.PRODID = SD.PRODID 
+GROUP BY SM.SID, SNAME, LOCATION 
+HAVING SUM(QUANTITY*PRICE*(1 - (DISCOUNT/100))) > (SELECT AVG(SUM(QUANTITY*PRICE*(1 - (DISCOUNT/100)))) 
+					FROM Sale SI INNER JOIN Salesman SMI ON SI.SId = SMI.SId JOIN SaleDetail SD ON SD.SALEID = SI.SALEID JOIN Product P ON P.PRODID = SD.PRODID 
+					WHERE SM.LOCATION = SMI.LOCATION GROUP BY SI.SID);
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Assignment - 93:
+SELECT ITEMCODE, ITEMTYPE, DESCR, CATEGORY
+FROM Item
+WHERE ITEMCODE IN (SELECT ITEMCODE
+               		       FROM PurchaseBill);
+
+Assignment - 94:
+SELECT DISTINCT I.ITEMCODE, I.ITEMTYPE, I.DESCR, I.CATEGORY
+FROM Item I INNER JOIN Quotation Q ON I.ITEMCODE = Q.ITEMCODE 
+WHERE Q.QUOTEDPRICE = (SELECT MIN(QUOTEDPRICE)
+                       		FROM Quotation
+                       		WHERE QSTATUS = 'Rejected');
+
+Assignment - 95:
+SELECT ITEMCODE, DESCR 
+FROM Item WHERE ITEMCODE IN (SELECT DISTINCT ITEMCODE 
+			          FROM QUOTATION 
+			          WHERE QUOTEDPRICE = (SELECT MAX(QUOTEDPRICE) 
+						      FROM QUOTATION 
+						      WHERE QSTATUS IN ('Rejected','Closed')) 
+	  		           AND QSTATUS IN ('Rejected','Closed'));
+
+Assignment - 96:
+SELECT ITEMCODE, DESCR, PRICE
+FROM Item 
+WHERE PRICE = (SELECT MAX(PRICE) 
+	             FROM Item 
+              	             WHERE PRICE < (SELECT MAX(PRICE) 
+			          FROM Item));  
+
+Assignment - 98:
+SELECT ENAME, JOB
+FROM Emp
+WHERE EMPNO IN (SELECT EMPNO 
+		 FROM EmpVehicle);
+
+Assignment - 99:
+SELECT ENAME 
+FROM Emp
+WHERE SAL = (SELECT MAX(SAL) FROM Emp);
+
+Assignment - 100:
+SELECT EMPNO, ENAME FROM Emp 
+WHERE EMPNO IN (SELECT EV1.EMPNO 
+		  FROM EmpVehicle EV1, EmpVehicle EV2 
+		  WHERE EV1.VEHICLEID = EV2.VEHICLEID AND EV1.EMPNO <> EV2.EMPNO 
+		  GROUP BY EV1.EMPNO);
+
+Assignment - 102:
+SELECT I.ITEMCODE, I.DESCR, Q.QDATE
+FROM Item I INNER JOIN Quotation Q ON Q.ITEMCODE = I.ITEMCODE
+WHERE Q.QUOTEDPRICE < (SELECT MAX(QUOTEDPRICE) 
+			FROM Quotation Q1 
+			WHERE Q1.QDATE = Q.QDATE);
+
+Assignment  - 103:
+SELECT P.BILLID, P.ITEMCODE 
+FROM PurchaseBill P INNER JOIN RetailOutlet RO ON P.ROID = RO.ROID
+WHERE BILLAMOUNT < (SELECT AVG(BILLAMOUNT) 
+		           FROM PurchaseBill);
+
+Assignment - 104:
+SELECT DISTINCT Q.SNAME, I.ITEMCODE, I.DESCR
+FROM Item I INNER JOIN Quotation Q ON I.ITEMCODE = Q.ITEMCODE 
+WHERE Q.QUOTEDPRICE < (SELECT MAX(QUOTEDPRICE) 
+			FROM Quotation Q1 
+			WHERE Q1.ITEMCODE = Q.ITEMCODE AND Q.SNAME <> Q1.SNAME);
+
+Assignment - 105:
+SELECT EMPID, EMPNAME, DESIGNATION, SALARY
+FROM EmpDetails ED1
+WHERE SALARY IN (SELECT MAX(SALARY) 
+		  FROM EmpDetails ED2 
+		  WHERE ED2.DESIGNATION = ED1.DESIGNATION);
+
+Assignment - 106:
+SELECT C.CUSTID, C.CUSTNAME
+FROM Customer C 
+WHERE C.CUSTID NOT IN (SELECT P.CUSTID 
+		              FROM PurchaseBill P 
+		              WHERE P.CUSTID = C.CUSTID);
+
+Assignment - 108:
+SELECT CUSTID, CUSTNAME
+FROM Customer C
+WHERE C.CUSTID IN (SELECT CUSTID 
+		     FROM PurchaseBill P 
+		     WHERE C.CUSTID = P.CUSTID);
+
+Assignment - 109:
+SELECT EMPNO, ENAME
+FROM Emp E1
+WHERE SAL > (SELECT AVG(SAL) 
+	         FROM Emp E2 
+	         WHERE E1.DEPTNO = E2.DEPTNO 
+	         GROUP BY DEPTNO );
+
+Assignment - 110:
+DELETE FROM EmpVehicle
+WHERE EMPNO IN (SELECT EMPNO 
+		  FROM Emp 
+		  WHERE SAL IN (SELECT MAX(SAL) 
+			             FROM Emp 
+			             GROUP BY DEPTNO));
+
+Assignment - 111:
+UPDATE Emp E1 SET SAL =  (SELECT AVG(SAL) 
+			FROM Emp E2 
+			WHERE E1.DEPTNO = E2.DEPTNO 
+			GROUP BY DEPTNO);
+

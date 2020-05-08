@@ -1,0 +1,115 @@
+Exer - 10:
+INSERT INTO Salesman VALUES(11, 'Elizabeth', 'London');
+
+Exer - 11:
+INSERT INTO Product VALUES(110, 'Bat', 50, 'Sports', NULL);
+
+Exer - 12:
+SELECT * FROM Product;
+
+Exer - 13:
+SELECT PRODID, PRICE, CATEGORY FROM Product;
+
+Exer - 14:
+SELECT DISTINCT CATEGORY FROM Product;
+
+Exer - 15:
+SELECT PRODID, PDESC, CATEGORY, DISCOUNT FROM Product WHERE CATEGORY = 'Apparel';
+
+Exer - 16:
+SELECT PRODID, PDESC, CATEGORY, DISCOUNT FROM Product WHERE PDESC IS NULL; 
+
+Exer - 17:
+SELECT PRODID, PDESC, CATEGORY, DISCOUNT FROM Product WHERE CATEGORY = 'Apparel' AND DISCOUNT > 5;
+
+Exer - 18:
+UPDATE Product SET DISCOUNT = 25 WHERE CATEGORY = 'Sports';
+
+Exer - 19:
+UPDATE Product SET PRICE = 50 WHERE PDESC = 'Trouser' AND CATEGORY = 'Apparel';
+
+Exer - 20:
+UPDATE Salesman SET SNAME = 'Jenny', LOCATION = 'Bristol' WHERE SID = 3;
+
+Exer - 21:
+DELETE FROM SaleDetail WHERE SaleId = 1004;
+
+Exer - 22:
+DELETE FROM SaleDetail WHERE QUANTITY > 5;
+
+------------------------------------------------------------------------------------------------------------------------------
+
+Assignment - 15:
+INSERT INTO Shopper VALUES(101, 'Mark Jane', 'Male', 1234567890, 'Allen Street, New York');
+
+Assignment - 16:
+INSERT INTO Article VALUES('A1001', 'Mouse', 500, 0, 'C');
+
+Assignment - 17:
+INSERT INTO Store VALUES('Loyal World', 'Infy Campus, Mysore', 'Rohan Kumar');
+
+Assignment - 18:
+INSERT INTO Bill VALUES(1001, 'Loyal World', 101, 'A1001', 1000, '20-OCT-15', 2);
+
+Assignment - 19:
+INSERT INTO Supplier VALUES('S501', 'Avaya Ltd', 9012345678, 'Mysore');
+
+Assignment - 20:
+SELECT DESCR, PRICE FROM ITEM WHERE DESCR LIKE '%Hard disk%';
+
+Assignment - 
+SELECT * FROM Quotation WHERE QSTATUS = 'Rejected' OR QSTATUS = 'Closed';
+
+Assignment - 22:
+SELECT DESIGNATION, SALARY FROM EmpDetails WHERE DESIGNATION IN ('Manager', 'Billing Staff');
+
+Assignment - 23:
+SELECT ROID, LOCATION FROM RetailOutlet WHERE ManagerId IS NULL;
+
+Assignment - 24:
+SELECT OrderId, QuotationId, Status FROM Orders WHERE OrderDate BETWEEN '1-Dec-2014' and '1-Jan-2015';
+
+Assignment - 25:
+SELECT ItemCode, Descr, Price FROM Item WHERE Category = 'B' AND Descr LIKE '%Shirt%' or Descr LIKE '%Skirt%';
+
+Assignment - 26:
+SELECT DISTINCT Designation, Salary FROM EmpDetails;
+
+Assignment - 27:
+SELECT ItemCode, Descr, Price FROM Item;
+
+Assignment - 28:
+SELECT QuotationId, SName FROM Quotation WHERE QStatus IN ('Accepted', 'Rejected');
+
+Assignment - 29:
+SELECT ITEMCODE, DESCR, PRICE FROM Item WHERE DESCR LIKE '_r%';
+
+Assignment - 30:
+SELECT DISTINCT ItemType FROM Item;
+
+Assignment - 31:
+SELECT OrderId, QuotationId, Status, PymtDate FROM Orders WHERE PymTDate IS NULL;
+
+Assignment - 32:
+SELECT DISTINCT ItemType, Category FROM Item;
+
+Assignment - 33:
+SELECT EMPID, Salary AS "Current Salary", Salary*1.10 AS "New Salary", Salary*0.1 AS "Incremented Amount" FROM EmpDetails;
+
+Assignment - 34:
+INSERT INTO City VALUES('Mysore');
+
+Assignment - 35:
+INSERT INTO Address VALUES(350, 'Electronics City', 'Mysore', 570018, 'Karnataka');
+
+Assignment - 36:
+INSERT INTO Article VALUES('A1002', 'Keyboard', 1000, 10, 'B');
+
+Assignment - 37:
+SELECT QuotationId, QDate, QuotedPrice FROM Quotation WHERE QuotedPrice BETWEEN 1401 AND 2149;
+
+Assignment - 38:
+SELECT ItemType, Descr, Price FROM Item WHERE Price > 4000;
+
+Assignment - 39:
+SELECT Designation, Salary FROM EmpDetails WHERE Designation IN ('Manager', 'Billing Staff') AND Salary BETWEEN 2500 AND 5000;

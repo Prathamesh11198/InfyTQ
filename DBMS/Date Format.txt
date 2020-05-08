@@ -1,0 +1,10 @@
+
+select to_char(sysdate,'MM-dd') from dual;
+select to_char(sysdate,'Mon-dd') from dual;
+select to_char(sysdate,'Month-dd') from dual;
+select to_char(sysdate+2,'Month-d-dd-MI') from dual; 
+select to_char(sysdate+2,'Month-d-Dy-dd-MI') from dual; 
+select to_char(sysdate+2,'Month-d-dd-MI') from dual; 
+select to_char(Add_months(sysdate,2),'Month-d-dd-MI') from dual;
+select to_char(to_date('18-Feb-2020'),'d') from dual; 
+select to_char(to_date('18-Feb-2020'),'day') from dual;
